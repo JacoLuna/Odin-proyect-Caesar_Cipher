@@ -8,12 +8,19 @@ def caesar_cipher(string, shift, rightShift = true)
       if letter.match(/[a-zA-Z]/)
         letterIndex = abecedary.find_index(letter.downcase)
         
-        if letterIndex + shift > abecedary.length
-          letterIndex = letterIndex + shift - abecedary.length
+        if rightShift
+          if letterIndex + shift > abecedary.length
+            letterIndex = letterIndex + shift - abecedary.length
+          else
+            letterIndex = letterIndex + shift
+          end
         else
-          letterIndex = letterIndex + shift
+          if letterIndex - shift < abecedary.length
+            letterIndex = letterIndex - shift + abecedary.length
+          else
+            letterIndex = letterIndex - shift
+          end
         end
-        
         encodeString += letter == letter.downcase ? abecedary[letterIndex].downcase : abecedary[letterIndex].upcase
       else
         encodeString += letter
@@ -23,7 +30,4 @@ def caesar_cipher(string, shift, rightShift = true)
     encodeString
 end
 
-# puts caesar_cipher("a", 5)
-puts caesar_cipher("What a string!", 5)
-
-
+puts caesar_cipher("A", 1, false)
